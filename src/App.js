@@ -19,7 +19,6 @@ class App extends React.Component {
       "info": []
     }
 
-    this.deleteWine = this.deleteWine.bind(this);
   
     // this.state = {
     //    name: '',
@@ -111,15 +110,14 @@ async postApi () {
 //     })
 // }
 
-handleDelete = () => {
-  axios
-    .delete("http://myapi-profstream.herokuapp.com/api/258ce2/wines/", {
-      params: { id: this.state.info.id }
-    })
-    .then(response => {
-      console.log(response);
-    });
-};
+// handleDelete = () => {
+//   axios.delete("http://myapi-profstream.herokuapp.com/api/258ce2/wines/", {
+//       params: { id: this.state.info.id }
+//     })
+//     .then(response => {
+//       console.log(response);
+//     });
+// };
 
   componentDidMount() {
     this.postApi();
@@ -130,10 +128,10 @@ handleDelete = () => {
   render() {
 
 
-   function deleteHandler(e, id){
+   function handleDelete(e, id){
       e.preventDefault()
       console.log(this.state);
-      axios.delete("http://myapi-profstream.herokuapp.com/api/258ce2/wines/"+id )
+      axios.delete(`http://myapi-profstream.herokuapp.com/api/258ce2/wines/${id}` )
       .then(response => {
           console.log(response)
       })
@@ -173,8 +171,7 @@ handleDelete = () => {
                    <p>{info.region}</p>
                    <p>{info.description}</p>
                    <p>{info.price}</p>
-                   <p>{info.id}</p>
-                   <button onClick={() => this.handleDelete}>Delete</button>
+                   <p>Item ID= {info.id}</p>
             </div>
             )
           })}

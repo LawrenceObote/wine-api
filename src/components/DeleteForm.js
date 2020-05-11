@@ -6,14 +6,7 @@ class DeleteForm extends Component {
         super(props)
     
         this.state = {
-            name: '',
-            year: '',
-            grapes: '',
-            country: '',
-            region: '',
-            description: '',
-            picture:'',
-            price: ''
+            id: ''
      
          }
     }
@@ -36,18 +29,33 @@ class DeleteForm extends Component {
 
       }
 
-      handleDelete = (itemId) => {
-          axios.delete("http://myapi-profstream.herokuapp.com/api/258ce2/wines", {params: {id: itemId}})
+      handleDelete = (id) => {
+          console.log(this.state);
+          axios.delete(`http://myapi-profstream.herokuapp.com/api/258ce2/wines/${this.state}`)
           .then(response => {
               console.log(response);
           })
       }
+
+      submitHandler = e => {
+        e.preventDefault()
+        console.log(this.state)
+        axios.delete(`http://myapi-profstream.herokuapp.com/api/258ce2/wines/${this.state.id}`)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+      }
     render() {
+        const {id} = this.state;
         return (
             <div>
-                <form onSubmit={this.deleteHandler}>
-                    <input type="text" id="" onSubmit={this.deleteHandler}></input> 
-                    <button onClick={this.props.handleDelete}>Delete</button>
+                <form onSubmit={this.submitHandler}>
+                    <input type="text" placeholder="Enter ID to delete" name="id" value={id} onChange={this.changeHandler}></input> 
+                    <button type="submit" >Delete</button>
                     
                 </form>
             </div>
